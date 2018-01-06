@@ -12,10 +12,10 @@ class Block:
 
     def hash_block(self):
         sha = hasher.sha3_256()
-        sha.update(str(self.index)+
-                   str(self.timestamp) +
-                   str(self.data) +
-                   str(self.previous_hash))
+        sha.update(str(self.index).encode('utf-8') +
+                   str(self.timestamp).encode('utf-8') +
+                   str(self.data).encode('utf-8') +
+                   str(self.previous_hash).encode('utf-8'))
 
         return sha.hexdigest()
 
@@ -24,11 +24,11 @@ class Block:
         return Block(index=0,
                      timestamp=date.datetime.now(),
                      data=None,
-                     previous_hash=None)
+                     previous_hash=1)
 
     @staticmethod
     def new_block(old_block):
-        new_index = old_block.index + 1,
+        new_index = old_block.index + 1
         new_timestamp = date.datetime.now()
         new_data = 'New block, who dis {}'.format(str(new_index))
         new_hash = old_block.hash
