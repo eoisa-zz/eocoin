@@ -31,7 +31,7 @@ class Transaction(Resource):
         if len(blockchain) == 1:
             old_block = blockchain[0]
         else:
-            old_block = blockchain[len(blockchain)-1]
+            old_block = blockchain[len(blockchain) - 1]
 
         my_transactions.append(transaction)
 
@@ -39,4 +39,3 @@ class Transaction(Resource):
         blockchain.append(new_block)
 
         return {'message': 'transaction successful'}
-

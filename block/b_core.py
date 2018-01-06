@@ -33,4 +33,3 @@ class Block:
         new_data = ledger_data
         new_hash = old_block.hash
         return Block(new_index, new_timestamp, new_data, new_hash)
-

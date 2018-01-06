@@ -21,17 +21,17 @@ miner_address = int(hashlib.sha1(str(get_mac()).encode('utf-8')).hexdigest(), 24
 class Mine(Resource):
     @ns.response(200, 'eocoin mine successfull', mine_success_response)
     def get(self):
-        last_block = blockchain[len(blockchain)-1]
-        if len(blockchain) == 1:
+        last_block = blockchain[len(blockchain) - 1]
+        if last_block.index == 0:
             last_proof = 1
         else:
             last_proof = last_block.data['proof-of-work']
         proof = b_mine.proof_of_work(last_proof)
 
         transaction.append({
-                "from": "network",
-                "to": str(miner_address),
-                "amount": 1})
+            "from": "network",
+            "to": str(miner_address),
+            "amount": 1})
 
         block_data = {
             "proof-of-work": proof,
