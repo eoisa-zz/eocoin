@@ -1,5 +1,5 @@
-import hashlib as hasher
 import datetime as date
+import hashlib as hasher
 
 
 class Block:
@@ -23,7 +23,7 @@ class Block:
     def create_genesis():
         return Block(index=0,
                      timestamp=date.datetime.now(),
-                     data=None,
+                     data='Genesis Block',
                      previous_hash=0)
 
     @staticmethod

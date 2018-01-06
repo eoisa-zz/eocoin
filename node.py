@@ -1,6 +1,7 @@
-from app_config import *
 from flask import Flask
-from controllers.transaction import api
+
+from app_config import *
+from controllers import api
 
 node = Flask(__name__)
 api.init_app(node)

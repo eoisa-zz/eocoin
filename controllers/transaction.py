@@ -1,9 +1,10 @@
-from block.block_ops import Block
-from flask_restplus import Api, fields, Resource, Namespace
+from flask_restplus import fields, Resource, Namespace
 
-api = Api(prefix='/api/eocoin')
+import controllers
+from block import blockchain
+from block.b_core import Block
+
 ns = Namespace(name='transaction', description='how to register a transaction for eocoin')
-api.add_namespace(ns)
 
 post_transaction = ns.model('transaction', {
     'from': fields.String(description='Who sent it', example='Billy', required=True),
@@ -15,7 +16,6 @@ post_transaction_success_response = ns.model('Success', {
     'message': fields.String(description='transaction successful', example='transaction successful')
 })
 
-blockchain = [Block.create_genesis()]
 my_transactions = []
 
 
@@ -25,9 +25,8 @@ class Transaction(Resource):
     @ns.response(200, 'transaction successful', post_transaction_success_response)
     def post(self):
         global my_transactions
-        global blockchain
 
-        transaction = api.payload
+        transaction = controllers.api.payload
 
         if len(blockchain) == 1:
             old_block = blockchain[0]
