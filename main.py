@@ -1,20 +1,22 @@
-from block import Block
+from app_config import *
+from flask import Flask
+from controllers.transaction import api
+
+node = Flask(__name__)
+api.init_app(node)
 
 
-def main(block_num):
-    blockchain = [Block.create_genesis()]
-    print("\nGenesis block has been created!\n".format(blockchain[0].index))
-    old_block = blockchain[0]
+def load_configurations():
+    node.config['RESTPLUS_SWAGGER_UI_DOC_EXPANSION'] = RESTPLUS_SWAGGER_UI_DOC_EXPANSION
+    node.config['RESTPLUS_VALIDATE'] = RESTPLUS_VALIDATE
+    node.config['RESTPLUS_MASK_SWAGGER'] = RESTPLUS_MASK_SWAGGER
+    node.config['RESTPLUS_ERROR_404_HELP'] = RESTPLUS_ERROR_404_HELP
 
-    for i in range(0, block_num):
-        new_block = Block.new_block(old_block)
-        blockchain.append(new_block)
-        print("Block [{}] has been added to the blockchain!".format(new_block.index))
-        print("Hash: {}".format(new_block.hash))
-        print("Data: {}\n".format(new_block.data))
-        old_block = new_block
+
+def main():
+    load_configurations()
+    node.run(debug=FLASK_DEBUG, threaded=True)
 
 
 if __name__ == '__main__':
-    number_of_blocks = input('Number of blocks to add to chain: ')
-    main(int(number_of_blocks))
+    main()

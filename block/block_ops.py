@@ -24,13 +24,13 @@ class Block:
         return Block(index=0,
                      timestamp=date.datetime.now(),
                      data=None,
-                     previous_hash=1)
+                     previous_hash=0)
 
     @staticmethod
-    def new_block(old_block):
+    def new_block(old_block, ledger_data):
         new_index = old_block.index + 1
         new_timestamp = date.datetime.now()
-        new_data = 'New block, who dis {}'.format(str(new_index))
+        new_data = ledger_data
         new_hash = old_block.hash
         return Block(new_index, new_timestamp, new_data, new_hash)
 
